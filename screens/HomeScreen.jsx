@@ -10,6 +10,7 @@ import {
   AdjustmentsHorizontalIcon,
 } from "react-native-heroicons/outline";
 import Categories from "../components/Categories";
+import FeaturedRow from "../components/FeaturedRow";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -31,10 +32,10 @@ const HomeScreen = () => {
 
         <View className="flex-1">
           <Text className="font-bold text-gray-400 text-xs">Deliver Now!</Text>
-          <Text className="font-bold text-xl">
-            Current Location
+          <View className="flex-row items-end">
+            <Text className="font-bold text-xl">Current Location</Text>
             <ChevronDownIcon size={20} color="#00CCBB" />
-          </Text>
+          </View>
         </View>
 
         <UserIcon size={35} color="#00CCBB" />
@@ -53,11 +54,31 @@ const HomeScreen = () => {
       </View>
 
       {/* Body  */}
-      <ScrollView className="bg-gray-100">
+      <ScrollView
+        className="bg-gray-100"
+        contentContainerStyle={{
+          paddingBottom: 150,
+        }}
+      >
         {/* Categories  */}
         <Categories />
 
         {/* Featured Rows  */}
+        <FeaturedRow
+          id="11"
+          title="Featured"
+          description="Paid placements from our partners"
+        />
+        <FeaturedRow
+          id="12"
+          title="Tasty Discounts"
+          description="Everyone's been enjoying these juicy discounts! "
+        />
+        <FeaturedRow
+          id="13"
+          title="Offers near you!"
+          description="Why not support your local restaurant tonight!"
+        />
       </ScrollView>
     </SafeAreaView>
   );
