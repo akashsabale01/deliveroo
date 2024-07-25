@@ -48,6 +48,10 @@ const Categories = () => {
         imgUrl="https://links.papareact.com/gn7"
         title="category 3"
       />
+      <CategoryCard
+        imgUrl="https://links.papareact.com/gn7"
+        title="category 3"
+      />
     </ScrollView>
   );
 };
