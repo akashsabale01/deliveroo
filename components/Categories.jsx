@@ -1,8 +1,26 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Image, ScrollView, Text } from "react-native";
 import CategoryCard from "./CategoryCard";
+import sanityClient, { urlFor } from "../sanity";
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+          *[_type == "category"]
+        `
+      )
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   return (
     <ScrollView
       horizontal
@@ -12,46 +30,13 @@ const Categories = () => {
         paddingTop: 5,
       }}
     >
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 1"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 2"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
-      <CategoryCard
-        imgUrl="https://links.papareact.com/gn7"
-        title="category 3"
-      />
+      {categories?.map((category) => (
+        <CategoryCard
+          key={category._id}
+          imgUrl={urlFor(category.image).width(200).url()}
+          title={category.name}
+        />
+      ))}
     </ScrollView>
   );
 };
