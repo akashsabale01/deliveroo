@@ -11,6 +11,7 @@ import {
 } from "react-native-heroicons/outline";
 import { StarIcon } from "react-native-heroicons/solid";
 import DishRow from "../components/DishRow";
+import BasketPopUp from "../components/BasketPopUp";
 
 const RestaurantScreen = () => {
   const navigation = useNavigation();
@@ -38,6 +39,7 @@ const RestaurantScreen = () => {
 
   return (
     <SafeAreaView>
+      <BasketPopUp />
       <ScrollView>
         <View className="relative">
           <Image
@@ -84,7 +86,7 @@ const RestaurantScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View>
+        <View className="pb-48">
           <Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
 
           {/* Dishrows  */}
