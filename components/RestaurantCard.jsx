@@ -42,7 +42,7 @@ const RestaurantCard = ({
         className="h-36 w-64 rounded-t-lg"
       />
 
-      <View className="px-3 pb-4">
+      <View className="px-3 pb-4 overflow-clip">
         <Text className="font-bold text-lg pt-2">{title}</Text>
 
         <View className="flex-row items-center space-x-1">
@@ -54,7 +54,9 @@ const RestaurantCard = ({
 
         <View className="flex-row items-center space-x-1 mt-1">
           <MapPinIcon color="gray" opacity={0.4} size={22} />
-          <Text className="text-xs text-gray-500">Nearby · {address}</Text>
+          <Text className="text-xs text-gray-500 overflow-hidden truncate w-52">
+            Nearby · {address}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

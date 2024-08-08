@@ -88,7 +88,7 @@ const RestaurantScreen = () => {
 
               <View className="flex-row items-center space-x-1">
                 <MapPinIcon color="gray" opacity={0.4} size={22} />
-                <Text className="text-xs text-gray-500">
+                <Text className="text-xs text-gray-500 overflow-hidden truncate w-52">
                   Nearby · {address}
                 </Text>
               </View>
