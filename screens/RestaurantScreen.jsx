@@ -29,7 +29,7 @@ const RestaurantScreen = () => {
       address,
       short_description,
       dishes,
-      long,
+      lon,
       lat,
     },
   } = useRoute();
@@ -45,7 +45,7 @@ const RestaurantScreen = () => {
         address,
         short_description,
         dishes,
-        long,
+        lon,
         lat,
       })
     );
@@ -57,13 +57,15 @@ const RestaurantScreen = () => {
     });
   }, []);
 
+  // console.log("Dishes => ", dishes);
+
   return (
     <SafeAreaView>
       <BasketPopUp />
       <ScrollView>
         <View className="relative">
           <Image
-            source={{ uri: urlFor(imgUrl).url() }}
+            source={{ uri: imgUrl }}
             className="w-full h-56 bg-gray-300 p-4"
           />
           <TouchableOpacity
@@ -112,8 +114,8 @@ const RestaurantScreen = () => {
           {/* Dishrows  */}
           {dishes.map((dish) => (
             <DishRow
-              key={dish._id}
-              id={dish._id}
+              key={dish.id}
+              id={dish.id}
               name={dish.name}
               description={dish.short_description}
               price={dish.price}

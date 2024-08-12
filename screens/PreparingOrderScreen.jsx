@@ -12,6 +12,7 @@ const PreparingOrderScreen = () => {
     setTimeout(() => {
       navigation.navigate("DeliveryScreen");
     }, 4000);
+    // console.log("4 sec passed");
   }, []);
 
   return (

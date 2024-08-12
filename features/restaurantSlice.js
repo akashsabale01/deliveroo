@@ -8,9 +8,9 @@ const initialState = {
     rating: null,
     genre: null,
     address: null,
-    short_description: null,
+    shortDescription: null,
     dishes: null,
-    long: null,
+    lon: null,
     lat: null,
   },
 };

@@ -8,32 +8,41 @@ const FeaturedRow = ({ id, title, description }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    sanityClient
-      .fetch(
-        `
-        *[_type == "featured" && _id == $id]{
-          ...,
-          restaurants[]->{
-              ...,
-              dishes[]->,
-              type-> {
-                  name
-              }
-          },
-        }[0]
+    // sanityClient
+    //   .fetch(
+    //     `
+    //     *[_type == "featured" && _id == $id]{
+    //       ...,
+    //       restaurants[]->{
+    //           ...,
+    //           dishes[]->,
+    //           type-> {
+    //               name
+    //           }
+    //       },
+    //     }[0]
 
-      `,
-        { id }
-      )
+    //   `,
+    //     { id }
+    //   )
+    //   .then((data) => {
+    //     setRestaurants(data?.restaurants);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
+
+    fetch(`http://192.168.0.104:8080/api/featured/${id}`)
+      .then((response) => response.json())
       .then((data) => {
-        setRestaurants(data?.restaurants);
+        setRestaurants(data.restaurants);
       })
       .catch((err) => {
         console.error(err);
       });
   }, []);
 
-  //console.log(restaurants);
+  // console.log("restaurants => ", restaurants);
 
   return (
     <View>
@@ -49,22 +58,23 @@ const FeaturedRow = ({ id, title, description }) => {
         contentContainerStyle={{
           paddingHorizontal: 15,
         }}
-        className="pt-4"
+        className="pt-1"
       >
         {/* RestaurantsCards  */}
 
         {restaurants?.map((restaurant) => (
           <RestaurantCard
-            key={restaurant._id}
-            id={restaurant._id}
-            imgUrl={urlFor(restaurant.image).url()}
+            key={restaurant.id}
+            id={restaurant.id}
+            imgUrl={`http://192.168.0.104:8080/api/restaurants/image/${restaurant.id}`}
+            // imgUrl={urlFor(restaurant.image).url()}
             title={restaurant.name}
             rating={restaurant.rating}
-            genre={restaurant.type?.name}
-            address={restaurant.address}
-            short_description={restaurant.short_description}
+            genre={restaurant.categories.map((cat) => cat.name).join(", ")}
+            address={restaurant.area + ", " + restaurant.city}
+            short_description={restaurant.shortDescription}
             dishes={restaurant.dishes}
-            long={restaurant.long}
+            lon={restaurant.lon}
             lat={restaurant.lat}
           />
         ))}

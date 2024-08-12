@@ -14,7 +14,7 @@ const RestaurantCard = ({
   address,
   short_description,
   dishes,
-  long,
+  lon,
   lat,
 }) => {
   const navigation = useNavigation();
@@ -31,16 +31,13 @@ const RestaurantCard = ({
           address,
           short_description,
           dishes,
-          long,
+          lon,
           lat,
         });
       }}
       className="bg-white mr-3 shadow-sm rounded-lg"
     >
-      <Image
-        source={{ uri: urlFor(imgUrl).url() }}
-        className="h-36 w-64 rounded-t-lg"
-      />
+      <Image source={{ uri: imgUrl }} className="h-36 w-64 rounded-t-lg" />
 
       <View className="px-3 pb-4 overflow-clip">
         <Text className="font-bold text-lg pt-2">{title}</Text>

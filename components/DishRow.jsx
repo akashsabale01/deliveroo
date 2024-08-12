@@ -50,7 +50,9 @@ const DishRow = ({ id, name, description, price, image }) => {
 
           <View>
             <Image
-              source={{ uri: urlFor(image).url() }}
+              source={{
+                uri: `http://192.168.0.104:8080/api/dishes/image/${id}`,
+              }}
               className="h-20 w-20 bg-gray-300 p-4 rounded-md"
               style={{
                 borderWidth: 1,

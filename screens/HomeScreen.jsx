@@ -24,22 +24,35 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
-    sanityClient
-      .fetch(
-        `
-        *[_type == "featured"]{
-          ...,
-          restaurants[]->{
-              ...,
-              dishes[]->
-          },
-        }
-      `
-      )
+    // sanityClient
+    //   .fetch(
+    //     `
+    //     *[_type == "featured"]{
+    //       ...,
+    //       restaurants[]->{
+    //           ...,
+    //           dishes[]->
+    //       },
+    //     }
+    //   `
+    //   )
+    //   .then((data) => {
+    //     setFeaturedCategories(data);
+    //   });
+
+    fetch("http://192.168.0.104:8080/api/featured")
+      .then((response) => response.json())
       .then((data) => {
+        // console.log(" data featuredCategories = ", data);
         setFeaturedCategories(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        // console.log(" error featuredCategories = ", err);
       });
   }, []);
+
+  // console.log("featuredCategories = ", featuredCategories);
 
   return (
     <SafeAreaView className="bg-white pt-5">
@@ -87,8 +100,8 @@ const HomeScreen = () => {
 
         {featuredCategories?.map((category) => (
           <FeaturedRow
-            key={category._id}
-            id={category._id}
+            key={category.id}
+            id={category.id}
             title={category.name}
             description={category.short_description}
           />

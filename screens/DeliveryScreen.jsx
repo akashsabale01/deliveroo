@@ -12,6 +12,9 @@ const DeliveryScreen = () => {
   const navigation = useNavigation();
   const restaurant = useSelector(selectRestaurant);
 
+  // console.log("In DeliveryScreen");
+  // console.log("DeliveryScreen restaurant => ", restaurant);
+
   return (
     <View className="bg-[#00CCBB] flex-1">
       <SafeAreaView className="z-50">
@@ -44,7 +47,7 @@ const DeliveryScreen = () => {
       <MapView
         initialRegion={{
           latitude: restaurant.lat,
-          longitude: restaurant.long,
+          longitude: restaurant.lon,
           latitudeDelta: 0.005,
           longitudeDelta: 0.005,
         }}
@@ -54,7 +57,7 @@ const DeliveryScreen = () => {
         <Marker
           coordinate={{
             latitude: restaurant.lat,
-            longitude: restaurant.long,
+            longitude: restaurant.lon,
           }}
           title={restaurant.title}
           description={restaurant.short_description}
