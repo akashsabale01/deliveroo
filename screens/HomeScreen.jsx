@@ -12,6 +12,7 @@ import {
 import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeaturedRow";
 import sanityClient from "../sanity";
+import { baseAddressUrl } from "../utils/API_Info";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -40,7 +41,8 @@ const HomeScreen = () => {
     //     setFeaturedCategories(data);
     //   });
 
-    fetch("http://192.168.0.104:8080/api/featured")
+    // fetch("http://192.168.0.102:8080/api/featured")
+    fetch(baseAddressUrl + "/featured")
       .then((response) => response.json())
       .then((data) => {
         // console.log(" data featuredCategories = ", data);

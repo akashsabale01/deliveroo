@@ -12,6 +12,7 @@ import {
 import { XCircleIcon } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
 import { CurrencyRupeeIcon } from "react-native-heroicons/outline";
+import { baseAddressUrl } from "../utils/API_Info";
 
 const BasketScreen = () => {
   const navigation = useNavigation();
@@ -74,7 +75,7 @@ const BasketScreen = () => {
               <Image
                 // source={{ uri: urlFor(items[0]?.image).url() }}
                 source={{
-                  uri: `http://192.168.0.104:8080/api/dishes/image/${key}`,
+                  uri: baseAddressUrl + `/dishes/image/${key}`,
                 }}
                 className="h-12 w-12 rounded-full"
               />

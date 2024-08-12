@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
 import RestaurantCard from "./RestaurantCard";
 import sanityClient, { urlFor } from "../sanity";
+import { baseAddressUrl } from "../utils/API_Info";
 
 const FeaturedRow = ({ id, title, description }) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -32,7 +33,8 @@ const FeaturedRow = ({ id, title, description }) => {
     //     console.error(err);
     //   });
 
-    fetch(`http://192.168.0.104:8080/api/featured/${id}`)
+    // fetch(`http://192.168.0.104:8080/api/featured/${id}`)
+    fetch(baseAddressUrl + `/featured/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setRestaurants(data.restaurants);
@@ -66,7 +68,7 @@ const FeaturedRow = ({ id, title, description }) => {
           <RestaurantCard
             key={restaurant.id}
             id={restaurant.id}
-            imgUrl={`http://192.168.0.104:8080/api/restaurants/image/${restaurant.id}`}
+            imgUrl={baseAddressUrl + `/restaurants/image/${restaurant.id}`}
             // imgUrl={urlFor(restaurant.image).url()}
             title={restaurant.name}
             rating={restaurant.rating}

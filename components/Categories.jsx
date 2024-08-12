@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, ScrollView, Text } from "react-native";
 import CategoryCard from "./CategoryCard";
 import sanityClient, { urlFor } from "../sanity";
+import { baseAddressUrl } from "../utils/API_Info";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,8 @@ const Categories = () => {
     //     console.error(err);
     //   });
 
-    fetch("http://192.168.0.104:8080/api/categories")
+    // fetch("http://192.168.0.104:8080/api/categories")
+    fetch(baseAddressUrl + "/categories")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data);
@@ -44,7 +46,7 @@ const Categories = () => {
       {categories?.map((category) => (
         <CategoryCard
           key={category.id}
-          imgUrl={`http://192.168.0.104:8080/api/categories/image/${category.id}`}
+          imgUrl={baseAddressUrl + `/categories/image/${category.id}`}
           title={category.name}
         />
       ))}
