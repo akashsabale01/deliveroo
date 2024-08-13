@@ -4,8 +4,11 @@ import { ArrowRightIcon } from "react-native-heroicons/outline";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantCardSkeleton from "./RestaurantCardSkeleton"; // Import the skeleton component
 import { baseAddressUrl } from "../utils/API_Info";
+import { useNavigation } from "@react-navigation/native";
 
 const FeaturedRow = ({ id, title, description }) => {
+  const navigation = useNavigation();
+
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
 
@@ -26,7 +29,16 @@ const FeaturedRow = ({ id, title, description }) => {
     <View>
       <View className="flex-row items-center justify-between mt-4 px-4">
         <Text className="font-bold text-lg">{title}</Text>
-        <ArrowRightIcon color="#00CCBB" />
+        <ArrowRightIcon
+          onPress={() =>
+            navigation.navigate("ShowRestaurantByFeaturedCategory", {
+              title,
+              description,
+              restaurants,
+            })
+          }
+          color="#00CCBB"
+        />
       </View>
 
       <Text className="text-xs text-gray-500 px-4">{description}</Text>
