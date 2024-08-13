@@ -4,7 +4,7 @@
     "slug": "DELIVEROO",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/deliveroo-logo.png",
+    "icon": "./assets/deliveroo-app-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/deliveroo-logo.png",
@@ -16,12 +16,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/deliveroo-logo.png",
+        "foregroundImage": "./assets/deliveroo-app-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets//deliveroo-logo.png"
+      "favicon": "./assets/deliveroo-app-icon.png"
     }
   }
 }

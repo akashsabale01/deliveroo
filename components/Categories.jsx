@@ -3,32 +3,22 @@ import { Image, ScrollView, Text } from "react-native";
 import CategoryCard from "./CategoryCard";
 import sanityClient, { urlFor } from "../sanity";
 import { baseAddressUrl } from "../utils/API_Info";
+import CategoryCardSkeleton from "./CategoryCardSkeleton";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // sanityClient
-    //   .fetch(
-    //     `
-    //       *[_type == "category"]
-    //     `
-    //   )
-    //   .then((data) => {
-    //     setCategories(data);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
-
-    // fetch("http://192.168.0.104:8080/api/categories")
     fetch(baseAddressUrl + "/categories")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+        setLoading(false);
       });
   }, []);
 
@@ -43,13 +33,31 @@ const Categories = () => {
         paddingTop: 5,
       }}
     >
-      {categories?.map((category) => (
-        <CategoryCard
-          key={category.id}
-          imgUrl={baseAddressUrl + `/categories/image/${category.id}`}
-          title={category.name}
-        />
-      ))}
+      {loading ? (
+        // Show skeleton loaders while data is being fetched
+        <>
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+          <CategoryCardSkeleton />
+        </>
+      ) : (
+        // Show actual category cards once data is loaded
+        categories?.map((category) => (
+          <CategoryCard
+            key={category.id}
+            imgUrl={baseAddressUrl + `/categories/image/${category.id}`}
+            title={category.name}
+          />
+        ))
+      )}
     </ScrollView>
   );
 };

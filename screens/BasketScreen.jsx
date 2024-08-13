@@ -33,7 +33,7 @@ const BasketScreen = () => {
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
-  // console.log("groupedItemsInBasket ---> ", groupedItemsInBasket);
+  // console.log(" len items ---> ", items.length);
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -53,84 +53,100 @@ const BasketScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="bg-white flex-row items-center space-x-4 px-4 py-3 my-5">
-          <Image
-            source={{ uri: "https://links.papareact.com/wru" }}
-            className="h-7 w-7 bg-gray-300 p-4 rounded-full"
-          />
-          <Text className="flex-1">Deliver in 50-70 min</Text>
-          <TouchableOpacity>
-            <Text className="text-[#00CCBB]">Change</Text>
-          </TouchableOpacity>
-        </View>
+        {items.length === 0 && (
+          <View className="bg-g flex-1 items-center pt-12  px-6">
+            <Image
+              source={require("../assets/Empty-Basket.png")}
+              className="h-64 w-64 rounded-md"
+            />
+            <Text className="mt-3 text-4xl font-extrabold text-[#00CCBB]">
+              Basket is Empty!
+            </Text>
+          </View>
+        )}
 
-        <ScrollView className="divide-y divide-gray-200">
-          {Object.entries(groupedItemsInBasket).map(([key, items]) => (
-            <View
-              key={key}
-              className="bg-white flex-row items-center space-x-3 px-5 py-2"
-            >
-              <Text className="text-[#00CCBB]">{items.length} x</Text>
-
+        {items.length > 0 && (
+          <>
+            <View className="bg-white flex-row items-center space-x-4 px-4 py-3 my-5">
               <Image
-                // source={{ uri: urlFor(items[0]?.image).url() }}
-                source={{
-                  uri: baseAddressUrl + `/dishes/image/${key}`,
-                }}
-                className="h-12 w-12 rounded-full"
+                source={{ uri: "https://links.papareact.com/wru" }}
+                className="h-7 w-7 bg-gray-300 p-4 rounded-full"
               />
+              <Text className="flex-1">Deliver in 50-70 min</Text>
+              <TouchableOpacity>
+                <Text className="text-[#00CCBB]">Change</Text>
+              </TouchableOpacity>
+            </View>
 
-              <Text className="flex-1">{items[0]?.name}</Text>
+            <ScrollView className="divide-y divide-gray-200">
+              {Object.entries(groupedItemsInBasket).map(([key, items]) => (
+                <View
+                  key={key}
+                  className="bg-white flex-row items-center space-x-3 px-5 py-2"
+                >
+                  <Text className="text-[#00CCBB]">{items.length} x</Text>
 
-              <View className="flex-row items-center">
-                <CurrencyRupeeIcon size={20} color="gray" />
-                <Text className="text-gray-600 text-xs">
-                  {/* <Currency quantity={price} currency="INR" /> */}
-                  {items[0]?.price}
-                </Text>
+                  <Image
+                    // source={{ uri: urlFor(items[0]?.image).url() }}
+                    source={{
+                      uri: baseAddressUrl + `/dishes/image/${key}`,
+                    }}
+                    className="h-12 w-12 rounded-full"
+                  />
+
+                  <Text className="flex-1">{items[0]?.name}</Text>
+
+                  <View className="flex-row items-center">
+                    <CurrencyRupeeIcon size={20} color="gray" />
+                    <Text className="text-gray-600 text-xs">
+                      {/* <Currency quantity={price} currency="INR" /> */}
+                      {items[0]?.price}
+                    </Text>
+                  </View>
+
+                  <TouchableOpacity
+                    onPress={() => dispatch(removeFromBasket({ id: key }))}
+                  >
+                    <Text className="text-[#00CCBB] text-xs">Remove</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
+
+            <View className="bg-white p-5 mt-5 space-y-4">
+              <View className="flex-row justify-between">
+                <Text className="text-gray-400">Subtotal</Text>
+                <View className="flex-row items-center">
+                  <CurrencyRupeeIcon size={20} color="#9ca3af" />
+                  <Text className="text-gray-400">{basketTotal}</Text>
+                </View>
+              </View>
+              <View className="flex-row justify-between">
+                <Text className="text-gray-400">Delivery Fee</Text>
+                <View className="flex-row items-center">
+                  <CurrencyRupeeIcon size={20} color="#9ca3af" />
+                  <Text className="text-gray-400">{30}</Text>
+                </View>
+              </View>
+              <View className="flex-row justify-between">
+                <Text className="font-semibold">Order Total</Text>
+                <View className="flex-row items-center">
+                  <CurrencyRupeeIcon size={20} color="black" />
+                  <Text className="font-extrabold">{basketTotal + 30}</Text>
+                </View>
               </View>
 
               <TouchableOpacity
-                onPress={() => dispatch(removeFromBasket({ id: key }))}
+                onPress={() => navigation.navigate("PreparingOrderScreen")}
+                className="rounded-lg bg-[#00CCBB] p-4"
               >
-                <Text className="text-[#00CCBB] text-xs">Remove</Text>
+                <Text className="text-center text-white text-lg font-bold">
+                  Place Order
+                </Text>
               </TouchableOpacity>
             </View>
-          ))}
-        </ScrollView>
-
-        <View className="bg-white p-5 mt-5 space-y-4">
-          <View className="flex-row justify-between">
-            <Text className="text-gray-400">Subtotal</Text>
-            <View className="flex-row items-center">
-              <CurrencyRupeeIcon size={20} color="#9ca3af" />
-              <Text className="text-gray-400">{basketTotal}</Text>
-            </View>
-          </View>
-          <View className="flex-row justify-between">
-            <Text className="text-gray-400">Delivery Fee</Text>
-            <View className="flex-row items-center">
-              <CurrencyRupeeIcon size={20} color="#9ca3af" />
-              <Text className="text-gray-400">{30}</Text>
-            </View>
-          </View>
-          <View className="flex-row justify-between">
-            <Text className="font-semibold">Order Total</Text>
-            <View className="flex-row items-center">
-              <CurrencyRupeeIcon size={20} color="black" />
-              <Text className="font-extrabold">{basketTotal + 30}</Text>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PreparingOrderScreen")}
-            className="rounded-lg bg-[#00CCBB] p-4"
-          >
-            <Text className="text-center text-white text-lg font-bold">
-              Place Order
-            </Text>
-          </TouchableOpacity>
-        </View>
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

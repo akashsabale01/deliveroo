@@ -25,23 +25,6 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
-    // sanityClient
-    //   .fetch(
-    //     `
-    //     *[_type == "featured"]{
-    //       ...,
-    //       restaurants[]->{
-    //           ...,
-    //           dishes[]->
-    //       },
-    //     }
-    //   `
-    //   )
-    //   .then((data) => {
-    //     setFeaturedCategories(data);
-    //   });
-
-    // fetch("http://192.168.0.102:8080/api/featured")
     fetch(baseAddressUrl + "/featured")
       .then((response) => response.json())
       .then((data) => {

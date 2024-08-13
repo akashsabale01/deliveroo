@@ -58,6 +58,7 @@ const RestaurantScreen = () => {
   }, []);
 
   // console.log("Dishes => ", dishes);
+  // console.log("Params => ", dishes);
 
   return (
     <SafeAreaView>
@@ -117,7 +118,7 @@ const RestaurantScreen = () => {
               key={dish.id}
               id={dish.id}
               name={dish.name}
-              description={dish.short_description}
+              description={dish.shortDescription}
               price={dish.price}
               image={dish.image}
             />
